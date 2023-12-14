@@ -7,7 +7,7 @@ export async function ListTaskRequest(){
         let res=await fetch("http://localhost:5000/api/v1/ListTask");
         let JSONData=await res.json();
         return JSONData['data'];
-    }catch (e) {
+    }catch (error) {
         return []
     }
 }
@@ -17,7 +17,7 @@ export async function ListTaskByIdRequest(id){
         let res=await fetch("http://localhost:5000/api/v1/ListTaskById/"+id);
         let JSONData=await res.json();
         return JSONData['data'][0];
-    }catch (e) {
+    }catch (error) {
         return []
     }
 }
@@ -36,7 +36,7 @@ export async function CreateTaskRequest(postBody){
             return  false
         }
 
-    }catch (e) {
+    }catch (error) {
         return  false
     }
 }
@@ -54,7 +54,7 @@ export async function UpdateTaskRequest(postBody,id){
             return  false
         }
 
-    }catch (e) {
+    }catch (error) {
         return  false
     }
 }
@@ -64,14 +64,14 @@ export async function UpdateTaskRequest(postBody,id){
 //Delete
 export async function DeleteTaskRequest(id){
     try {
-        let res=await fetch("http://localhost:5000/api/v1/"+id);
+        let res=await fetch("http://localhost:5000/api/v1/DeleteTask/"+id);
         let JSONData=await res.json();
         if(JSONData['status']==="success"){
             return  true;
         }else{
             return  false;
         }
-    }catch (e) {
+    }catch (error) {
         return  false;
     }
 }

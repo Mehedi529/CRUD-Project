@@ -1,44 +1,44 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, {useEffect, useState} from 'react';
-import {toast, Toaster} from "react-hot-toast";
-import {CreateTaskRequest, ListTaskByIdRequest, UpdateTaskRequest} from "../apiRequest/apiRequest.js";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { CreateTaskRequest, ListTaskByIdRequest,UpdateTaskRequest } from '../apiRequest/apiRequest';
+
 const SaveForm = () => {
 
-    let navigate=useNavigate();
-    let [FormValue,SetFormValue]=useState({email:"", title:"", description:"", status:""})
-    let [UpdateID,SetUpdateID]=useState(null);
+    let navigate=useNavigate;
+    let [FormValue, SetFormValue] = useState({email:"", title:"",description:"",status:""})
+    let[UpdateID,SetUpdateID]=useState(null);
 
-
-    useEffect(() => {
-        (async ()=>{
+    useEffect(()=>{
+        (async()=>{
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
-            SetUpdateID(id)
-            if(id!==null){
-               await FillForm(id)
+            SetUpdateID(id);
+            if(id !== null){
+                await FillForm(id)
             }
         })()
     }, []);
-    
-    const FillForm =async (id) => {
-       let res= await ListTaskByIdRequest(id)
-       SetFormValue({
-           email:res['email'],
-           title:res['title'],
-           description:res['description'],
-           status:res['status']
-       })
+
+    const FillForm = async (id)=>{
+        let res = await ListTaskByIdRequest(id)
+        SetFormValue({
+            email:res['email'],
+            title:res['title'],
+            description:res['description'],
+            status:res['status']
+        })
     }
 
-
-    const InputOnChange = (name,value) => {
-        SetFormValue((FormValue)=>({
+    const InputOnChange = (name,value)=>{
+        SetFormValue((FormValue=>({
             ...FormValue,
             [name]:value
-        }))
+        })))
     }
+
 
     const Save = async () => {
         if(FormValue.email.length===0){
@@ -55,7 +55,7 @@ const SaveForm = () => {
         }
         else{
             if(UpdateID==null){
-                let res=await CreateTaskRequest(FormValue);
+                let res=await createTaskRequest(FormValue);
                 if(res){
                     toast.success("Create Request Completed");
                     navigate("/");
@@ -65,7 +65,7 @@ const SaveForm = () => {
                 }
             }
             else{
-                let res=await UpdateTaskRequest(FormValue,UpdateID);
+                let res=await updateTaskRequest(FormValue,UpdateID);
                 if(res){
                     toast.success("Update Request Completed");
                     navigate("/");
@@ -81,8 +81,9 @@ const SaveForm = () => {
     }
 
 
+
     return (
-        <div className="container mt-5">
+        <div className='container mt-5'>
             <div className="row">
                 <div className="col-md-4 p-2">
                     <label className="form-label">Your Email Address</label>
