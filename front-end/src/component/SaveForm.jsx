@@ -55,7 +55,7 @@ const SaveForm = () => {
         }
         else{
             if(UpdateID==null){
-                let res=await createTaskRequest(FormValue);
+                let res=await CreateTaskRequest(FormValue);
                 if(res){
                     toast.success("Create Request Completed");
                     navigate("/");
@@ -65,7 +65,7 @@ const SaveForm = () => {
                 }
             }
             else{
-                let res=await updateTaskRequest(FormValue,UpdateID);
+                let res=await UpdateTaskRequest(FormValue,UpdateID);
                 if(res){
                     toast.success("Update Request Completed");
                     navigate("/");
